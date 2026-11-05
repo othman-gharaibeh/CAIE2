@@ -10,7 +10,7 @@ def _build_generate_prompt(title: str, tone: str = None) -> str:
     if tone:
         prompt += f" Write it in a {tone} tone."
 
-    prompt += " Keep the total output under 500 characters."
+    prompt += " Keep the total output under 200 characters."
     return prompt
 
 def _generate_post(title: str, tone: str = None) -> dict:
