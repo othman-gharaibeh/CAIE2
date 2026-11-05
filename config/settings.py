@@ -121,7 +121,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-OPENAI_APIKEY = ('OPENAI_APIKEY')
+OPENAI_APIKEY = config('OPENAI_APIKEY')
+OPENAI_MODEL = config('OPENAI_MODEL', default='gpt-3.5-turbo')
 
 
 # Static files (CSS, JavaScript, Images)

@@ -6,9 +6,9 @@ class ContentClient():
     def __init__(self):
         self.client = OpenAI(api_key=settings.OPENAI_APIKEY)
 
-    def generate(self, prompt, system =None):
+    def generate(self, prompt, system=None):
 
-        messages=[]
+        messages = []
         if system:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": prompt})

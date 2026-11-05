@@ -1,13 +1,16 @@
-from ai_content.service.utils import validate_title, generate_ai_content
+import logging
+from .utils import validate_title, generate_ai_content
+
+logger = logging.getLogger(__name__)
 
 
 def _build_generate_prompt(title: str, tone: str = None) -> str:
-    prompt = f"Write a short blog post about {title}"
+    prompt = f"Write a short blog post about {title}."
 
     if tone:
-        prompt += f"Write it in a \n{tone}"
+        prompt += f" Write it in a {tone} tone."
 
-    prompt += f"keep the total output under 500 characters"
+    prompt += " Keep the total output under 500 characters."
     return prompt
 
 def _generate_post(title: str, tone: str = None) -> dict:
@@ -16,14 +19,14 @@ def _generate_post(title: str, tone: str = None) -> dict:
 
     prompt = _build_generate_prompt(cleand_title, tone)
     try:
-        cleand_content= generate_ai_content(prompt)
+        cleand_content = generate_ai_content(prompt)
     except Exception:
         logger.error(f"Failed to generate {cleand_title}")
         raise
 
     if len(cleand_content) > 500:
         cleand_content = cleand_content[:500]
-    return{
+    return {
         "title": cleand_title,
         "content": cleand_content,
         "length": len(cleand_content)

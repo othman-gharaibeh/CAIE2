@@ -1,15 +1,11 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from ai_content.service import _generate_post
+from django.urls import path
+from rest_framework import routers
+from .views import PostViewSet, get_post
 
-@api_view(["POST"])
-def generate_post(request):
-    title = request.data["title"]
-    tone = request.data["tone"]
+router = routers.DefaultRouter()
+router.register('posts', PostViewSet)
 
-    try:
-        result = _generate_post(title, tone)
-        return Response(result, status=status.HTTP_200_OK)
-    except ValueError as exc:
-        return Response({"error": str(exc)}, status=status.HTTP_400_BAD_REQUEST)
+urlpatterns = [
+    path('posts/get_post/', get_post, name='get_post' ),
+]
+urlpatterns += router.urls
